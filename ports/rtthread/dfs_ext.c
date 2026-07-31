@@ -173,7 +173,7 @@ static struct dfs_vnode *dfs_ext_lookup(struct dfs_dentry *dentry)
                     vnode->mnt = dentry->mnt;
                     vnode->data = (void *)ext_file;
                     ext_file->type = EXT4_DE_UNKNOWN;
-                    rt_mutex_init(&vnode->lock, dentry->pathname, RT_IPC_FLAG_PRIO);
+                    dfs_vnode_lock_init(vnode, dentry);
 
                     ext4_vnode_update_info(vnode);
                 }
@@ -302,7 +302,7 @@ static struct dfs_vnode *dfs_ext_create_vnode(struct dfs_dentry *dentry, int typ
                     vnode->data = (void *)ext_file;
                     vnode->mode = mode;
                     ext_file->type = filetype;
-                    rt_mutex_init(&vnode->lock, dentry->pathname, RT_IPC_FLAG_PRIO);
+                    dfs_vnode_lock_init(vnode, dentry);
                 }
             }
 
